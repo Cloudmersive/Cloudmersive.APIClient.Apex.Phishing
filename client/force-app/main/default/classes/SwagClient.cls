@@ -1,7 +1,7 @@
 public class SwagClient extends Swagger.ApiClient {
     public SwagClient() {
         basePath = 'https://localhost';
-        calloutName = 'spamapi';
+        calloutName = 'phishingapi';
         authentications.put('Apikey', new Swagger.ApiKeyHeaderAuth('Apikey'));
     }
 }

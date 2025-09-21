@@ -1,6 +1,6 @@
 /*
- * spamapi
- * Easily and directly scan and block spam security threats in input.
+ * phishingapi
+ * Easily and directly scan and block phishing security threats in input.
  *
  * OpenAPI spec version: v1
  * 
@@ -11,11 +11,11 @@
  */
 
 /**
- * AI spam detection request
+ * AI advanced phishing detection request
  */
-public class SwagSpamDetectionRequest implements Swagger.MappedProperties {
+public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedProperties {
     /**
-     * Input text string to detect spam against
+     * Input text string to detect phishing against
      * @return inputString
      */
     public String inputString { get; set; }
@@ -35,18 +35,18 @@ public class SwagSpamDetectionRequest implements Swagger.MappedProperties {
         return propertyMappings;
     }
 
-    public static SwagSpamDetectionRequest getExample() {
-        SwagSpamDetectionRequest spamDetectionRequest = new SwagSpamDetectionRequest();
-        spamDetectionRequest.inputString = 'Get free crypto now!!!';
-        spamDetectionRequest.model = 'Advanced';
-        return spamDetectionRequest;
+    public static SwagPhishingDetectionAdvancedRequest getExample() {
+        SwagPhishingDetectionAdvancedRequest phishingDetectionAdvancedRequest = new SwagPhishingDetectionAdvancedRequest();
+        phishingDetectionAdvancedRequest.inputString = 'aeiou';
+        phishingDetectionAdvancedRequest.model = 'aeiou';
+        return phishingDetectionAdvancedRequest;
     }
 
     public Boolean equals(Object obj) {
-        if (obj instanceof SwagSpamDetectionRequest) {
-            SwagSpamDetectionRequest spamDetectionRequest = (SwagSpamDetectionRequest) obj;
-            return this.inputString == spamDetectionRequest.inputString
-                && this.model == spamDetectionRequest.model;
+        if (obj instanceof SwagPhishingDetectionAdvancedRequest) {
+            SwagPhishingDetectionAdvancedRequest phishingDetectionAdvancedRequest = (SwagPhishingDetectionAdvancedRequest) obj;
+            return this.inputString == phishingDetectionAdvancedRequest.inputString
+                && this.model == phishingDetectionAdvancedRequest.model;
         }
         return false;
     }

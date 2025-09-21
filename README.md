@@ -1,6 +1,6 @@
-# spamapi API Client
+# phishingapi API Client
 
-Easily and directly scan and block spam security threats in input.
+Easily and directly scan and block phishing security threats in input.
 
 ## Requirements
 
@@ -42,21 +42,17 @@ If everything is set correctly:
 Please follow the [installation](#installation) instruction and execute the following Apex code:
 
 ```java
-SwagSpamDetectionApi api = new SwagSpamDetectionApi();
+SwagPhishingDetectionApi api = new SwagPhishingDetectionApi();
 SwagClient client = api.getClient();
 
 
 Map<String, Object> params = new Map<String, Object>{
-    'model' => 'model_example',
-    'allowPhishing' => true,
-    'allowUnsolicitedSales' => true,
-    'allowPromotionalContent' => true,
-    'inputFile' => Blob.valueOf('Sample text file\nContents')
+    'body' => SwagAdvancedEmailDetectionRequest.getExample()
 };
 
 try {
     // cross your fingers
-    SwagSpamDetectionAdvancedResponse result = api.spamDetectFileAdvancedPost(params);
+    SwagPhishingDetectionEmailAdvancedRe result = api.phishingDetectEmailAdvancedPost(params);
     System.debug(result);
 } catch (Swagger.ApiException e) {
     // ...handle your exceptions
@@ -69,18 +65,19 @@ All URIs are relative to *https://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*SwagSpamDetectionApi* | [**spamDetectFileAdvancedPost**](docs/SwagSpamDetectionApi.md#spamDetectFileAdvancedPost) | **POST** /spam/detect/file/advanced | Perform advanced AI spam detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learnign to detect spam, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
-*SwagSpamDetectionApi* | [**spamDetectFilePost**](docs/SwagSpamDetectionApi.md#spamDetectFilePost) | **POST** /spam/detect/file | Perform AI spam detection and classification on an input image or document (PDF or DOCX).  Analyzes input content as well as embedded URLs with AI deep learnign to detect spam, phishing and other unsafe content.  Uses 100-125 API calls depending on model selected.
-*SwagSpamDetectionApi* | [**spamDetectTextStringAdvancedPost**](docs/SwagSpamDetectionApi.md#spamDetectTextStringAdvancedPost) | **POST** /spam/detect/text-string/advanced | Perform advanced AI spam detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learnign to detect spam, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
-*SwagSpamDetectionApi* | [**spamDetectTextStringPost**](docs/SwagSpamDetectionApi.md#spamDetectTextStringPost) | **POST** /spam/detect/text-string | Perform AI spam detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learnign to detect spam, phishing and other unsafe content.  Uses 25-75 API calls depending on model selected.
+*SwagPhishingDetectionApi* | [**phishingDetectEmailAdvancedPost**](docs/SwagPhishingDetectionApi.md#phishingDetectEmailAdvancedPost) | **POST** /phishing/detect/email/advanced | Perform advanced AI phishing detection and classification against input email.  Analyzes input email as well as embedded URLs with AI deep learning to detect phishing, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
+*SwagPhishingDetectionApi* | [**phishingDetectFileAdvancedPost**](docs/SwagPhishingDetectionApi.md#phishingDetectFileAdvancedPost) | **POST** /phishing/detect/file/advanced | Perform advanced AI phishing detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learning to detect phishing, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
+*SwagPhishingDetectionApi* | [**phishingDetectFilePost**](docs/SwagPhishingDetectionApi.md#phishingDetectFilePost) | **POST** /phishing/detect/file | Perform AI phishing detection and classification on an input image or document (PDF or DOCX).  Analyzes input content as well as embedded URLs with AI deep learnign to detect phishing and other unsafe content.  Uses 100-125 API calls depending on model selected.
+*SwagPhishingDetectionApi* | [**phishingDetectTextStringAdvancedPost**](docs/SwagPhishingDetectionApi.md#phishingDetectTextStringAdvancedPost) | **POST** /phishing/detect/text-string/advanced | Perform advanced AI phishing detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learnign to detect spam, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
 
 
 ## Documentation for Models
 
- - [SwagSpamDetectionAdvancedRequest](docs/SwagSpamDetectionAdvancedRequest.md)
- - [SwagSpamDetectionAdvancedResponse](docs/SwagSpamDetectionAdvancedResponse.md)
- - [SwagSpamDetectionRequest](docs/SwagSpamDetectionRequest.md)
- - [SwagSpamDetectionResponse](docs/SwagSpamDetectionResponse.md)
+ - [SwagAdvancedEmailDetectionRequest](docs/SwagAdvancedEmailDetectionRequest.md)
+ - [SwagPhishingDetectionAdvancedRequest](docs/SwagPhishingDetectionAdvancedRequest.md)
+ - [SwagPhishingDetectionAdvancedRespons](docs/SwagPhishingDetectionAdvancedRespons.md)
+ - [SwagPhishingDetectionEmailAdvancedRe](docs/SwagPhishingDetectionEmailAdvancedRe.md)
+ - [SwagPhishingDetectionResponse](docs/SwagPhishingDetectionResponse.md)
 
 
 ## Documentation for Authorization

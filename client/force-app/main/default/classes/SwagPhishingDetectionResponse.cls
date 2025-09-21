@@ -1,6 +1,6 @@
 /*
- * spamapi
- * Easily and directly scan and block spam security threats in input.
+ * phishingapi
+ * Easily and directly scan and block phishing security threats in input.
  *
  * OpenAPI spec version: v1
  * 
@@ -11,11 +11,11 @@
  */
 
 /**
- * Result of detecting spam using AI
+ * Result of detecting phishing using AI
  */
-public class SwagSpamDetectionResponse implements Swagger.MappedProperties {
+public class SwagPhishingDetectionResponse implements Swagger.MappedProperties {
     /**
-     * True if the result is not spam (clean), and false otherwise
+     * True if the result is not phishing (clean), and false otherwise
      * @return cleanResult
      */
     public Boolean cleanResult { get; set; }
@@ -28,16 +28,16 @@ public class SwagSpamDetectionResponse implements Swagger.MappedProperties {
         return propertyMappings;
     }
 
-    public static SwagSpamDetectionResponse getExample() {
-        SwagSpamDetectionResponse spamDetectionResponse = new SwagSpamDetectionResponse();
-        spamDetectionResponse.cleanResult = true;
-        return spamDetectionResponse;
+    public static SwagPhishingDetectionResponse getExample() {
+        SwagPhishingDetectionResponse phishingDetectionResponse = new SwagPhishingDetectionResponse();
+        phishingDetectionResponse.cleanResult = true;
+        return phishingDetectionResponse;
     }
 
     public Boolean equals(Object obj) {
-        if (obj instanceof SwagSpamDetectionResponse) {
-            SwagSpamDetectionResponse spamDetectionResponse = (SwagSpamDetectionResponse) obj;
-            return this.cleanResult == spamDetectionResponse.cleanResult;
+        if (obj instanceof SwagPhishingDetectionResponse) {
+            SwagPhishingDetectionResponse phishingDetectionResponse = (SwagPhishingDetectionResponse) obj;
+            return this.cleanResult == phishingDetectionResponse.cleanResult;
         }
         return false;
     }
