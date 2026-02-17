@@ -47,6 +47,7 @@ private class SwagPhishingDetectionApiTest {
 
         Map<String, Object> params = new Map<String, Object>{
             'model' => 'model_example',
+            'customPolicyId' => 'customPolicyId_example',
             'inputFile' => Blob.valueOf('Sample text file\nContents')
         };
 
@@ -61,7 +62,7 @@ private class SwagPhishingDetectionApiTest {
             client.setApiKey('foo-bar-api-key');
 
         res.setHeader('Content-Type', 'application/json');
-        res.setBody('{\r\n  "PhishingRiskLevel" : 0.8008281904610115,\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true\r\n}');
+        res.setBody('{\r\n  "PhishingRiskLevel" : 0.8008281904610115,\r\n  "ConfidenceLevel" : 6.027456183070403,\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true\r\n}');
         expectedResponse = SwagPhishingDetectionAdvancedRespons.getExample();
         response = (SwagPhishingDetectionAdvancedRespons) api.phishingDetectFileAdvancedPost(params);
         System.assertEquals(expectedResponse, response);
@@ -128,9 +129,42 @@ private class SwagPhishingDetectionApiTest {
             client.setApiKey('foo-bar-api-key');
 
         res.setHeader('Content-Type', 'application/json');
-        res.setBody('{\r\n  "PhishingRiskLevel" : 0.8008281904610115,\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true\r\n}');
+        res.setBody('{\r\n  "PhishingRiskLevel" : 0.8008281904610115,\r\n  "ConfidenceLevel" : 6.027456183070403,\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true\r\n}');
         expectedResponse = SwagPhishingDetectionAdvancedRespons.getExample();
         response = (SwagPhishingDetectionAdvancedRespons) api.phishingDetectTextStringAdvancedPost(params);
+        System.assertEquals(expectedResponse, response);
+    }
+
+    /**
+     * Perform advanced AI phishing detection and classification against an input URL.  Retrieves the URL content, checks for SSRF threats, and analyzes the page with AI deep learning to detect phishing and other unsafe content.  Uses 100-125 API calls.
+     *
+     * 
+     */
+    @isTest
+    private static void phishingDetectUrlAdvancedPostTest() {
+        HttpResponse res = new HttpResponse();
+        res.setStatusCode(200);
+        res.setStatus('OK');
+        Test.setMock(HttpCalloutMock.class, new SwaggerResponseMock(res));
+
+        Map<String, Object> params = new Map<String, Object>{
+            'body' => SwagAdvancedUrlDetectionRequest.getExample()
+        };
+
+        SwagClient client;
+        SwagPhishingDetectionApi api;
+        SwagPhishingDetectionUrlAdvancedResp response;
+        SwagPhishingDetectionUrlAdvancedResp expectedResponse;
+
+        client = new SwagClient();
+        api = new SwagPhishingDetectionApi(client);
+        ((Swagger.ApiKeyAuth) client.getAuthentication('Apikey');
+            client.setApiKey('foo-bar-api-key');
+
+        res.setHeader('Content-Type', 'application/json');
+        res.setBody('{\r\n  "PhishingRiskLevel" : 0.8008281904610115,\r\n  "IsSsrfThreat" : true,\r\n  "ContainsUnsolicitedSales" : true,\r\n  "ContainsPhishingAttempt" : true,\r\n  "ContainsPhishing" : true,\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true,\r\n  "ContainsPromotionalContent" : true\r\n}');
+        expectedResponse = SwagPhishingDetectionUrlAdvancedResp.getExample();
+        response = (SwagPhishingDetectionUrlAdvancedResp) api.phishingDetectUrlAdvancedPost(params);
         System.assertEquals(expectedResponse, response);
     }
 }

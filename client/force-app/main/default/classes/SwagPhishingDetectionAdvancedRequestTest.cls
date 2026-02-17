@@ -84,5 +84,14 @@ private class SwagPhishingDetectionAdvancedRequestTest {
         Map<String, String> propertyMappings = phishingDetectionAdvancedRequest.getPropertyMappings();
         System.assertEquals('inputString', propertyMappings.get('InputString'));
         System.assertEquals('model', propertyMappings.get('Model'));
+        System.assertEquals('customPolicyID', propertyMappings.get('CustomPolicyID'));
+        System.assertEquals('provideAnalysisRationale', propertyMappings.get('ProvideAnalysisRationale'));
+        System.assertEquals('textType', propertyMappings.get('TextType'));
+        System.assertEquals('fromName', propertyMappings.get('FromName'));
+        System.assertEquals('toName', propertyMappings.get('ToName'));
+        System.assertEquals('fromPhoneNumber', propertyMappings.get('FromPhoneNumber'));
+        System.assertEquals('toPhoneNumber', propertyMappings.get('ToPhoneNumber'));
+        System.assertEquals('fromEmailAddress', propertyMappings.get('FromEmailAddress'));
+        System.assertEquals('toEmailAddress', propertyMappings.get('ToEmailAddress'));
     }
 }

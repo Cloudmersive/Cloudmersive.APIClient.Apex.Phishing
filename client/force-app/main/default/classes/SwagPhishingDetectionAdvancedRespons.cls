@@ -27,6 +27,12 @@ public class SwagPhishingDetectionAdvancedRespons implements Swagger.MappedPrope
     public Double phishingRiskLevel { get; set; }
 
     /**
+     * Confidence level between 0.0 and 1.0 where values over 0.9 indicate high confidence
+     * @return confidenceLevel
+     */
+    public Double confidenceLevel { get; set; }
+
+    /**
      * Rationale for why the conclusion was formed
      * @return analysisRationale
      */
@@ -35,6 +41,7 @@ public class SwagPhishingDetectionAdvancedRespons implements Swagger.MappedPrope
     private static final Map<String, String> propertyMappings = new Map<String, String>{
         'CleanResult' => 'cleanResult',
         'PhishingRiskLevel' => 'phishingRiskLevel',
+        'ConfidenceLevel' => 'confidenceLevel',
         'AnalysisRationale' => 'analysisRationale'
     };
 
@@ -46,6 +53,7 @@ public class SwagPhishingDetectionAdvancedRespons implements Swagger.MappedPrope
         SwagPhishingDetectionAdvancedRespons phishingDetectionAdvancedResponse = new SwagPhishingDetectionAdvancedRespons();
         phishingDetectionAdvancedResponse.cleanResult = true;
         phishingDetectionAdvancedResponse.phishingRiskLevel = 1.3579;
+        phishingDetectionAdvancedResponse.confidenceLevel = 1.3579;
         phishingDetectionAdvancedResponse.analysisRationale = 'aeiou';
         return phishingDetectionAdvancedResponse;
     }
@@ -55,6 +63,7 @@ public class SwagPhishingDetectionAdvancedRespons implements Swagger.MappedPrope
             SwagPhishingDetectionAdvancedRespons phishingDetectionAdvancedResponse = (SwagPhishingDetectionAdvancedRespons) obj;
             return this.cleanResult == phishingDetectionAdvancedResponse.cleanResult
                 && this.phishingRiskLevel == phishingDetectionAdvancedResponse.phishingRiskLevel
+                && this.confidenceLevel == phishingDetectionAdvancedResponse.confidenceLevel
                 && this.analysisRationale == phishingDetectionAdvancedResponse.analysisRationale;
         }
         return false;
@@ -64,6 +73,7 @@ public class SwagPhishingDetectionAdvancedRespons implements Swagger.MappedPrope
         Integer hashCode = 43;
         hashCode = (17 * hashCode) + (cleanResult == null ? 0 : System.hashCode(cleanResult));
         hashCode = (17 * hashCode) + (phishingRiskLevel == null ? 0 : System.hashCode(phishingRiskLevel));
+        hashCode = (17 * hashCode) + (confidenceLevel == null ? 0 : System.hashCode(confidenceLevel));
         hashCode = (17 * hashCode) + (analysisRationale == null ? 0 : System.hashCode(analysisRationale));
         return hashCode;
     }

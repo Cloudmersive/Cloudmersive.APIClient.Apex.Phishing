@@ -88,6 +88,7 @@ private class SwagAdvancedEmailDetectionRequestTest {
         System.assertEquals('htmlBody', propertyMappings.get('HtmlBody'));
         System.assertEquals('allowLowReputationSenders', propertyMappings.get('AllowLowReputationSenders'));
         System.assertEquals('allowSanctioned', propertyMappings.get('AllowSanctioned'));
+        System.assertEquals('customPolicyID', propertyMappings.get('CustomPolicyID'));
         System.assertEquals('inputEmailFile', propertyMappings.get('InputEmailFile'));
     }
 }

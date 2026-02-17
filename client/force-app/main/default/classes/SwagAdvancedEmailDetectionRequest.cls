@@ -51,7 +51,13 @@ public class SwagAdvancedEmailDetectionRequest implements Swagger.MappedProperti
     public Boolean allowSanctioned { get; set; }
 
     /**
-     * Get inputEmailFile
+     * Apply a Custom Policy for Phishing Enforcement by providing the ID; to create a Custom Policy,\r\nnavigate to the Cloudmersive Management Portal and select Custom Policies.\r\nRequires Managed Instance or Private Cloud
+     * @return customPolicyID
+     */
+    public String customPolicyID { get; set; }
+
+    /**
+     * Optional: Input email file bytes (EML, PDF, etc.).  If not provided, HtmlBody will be used instead.
      * @return inputEmailFile
      */
     public Blob inputEmailFile { get; set; }
@@ -63,6 +69,7 @@ public class SwagAdvancedEmailDetectionRequest implements Swagger.MappedProperti
         'HtmlBody' => 'htmlBody',
         'AllowLowReputationSenders' => 'allowLowReputationSenders',
         'AllowSanctioned' => 'allowSanctioned',
+        'CustomPolicyID' => 'customPolicyID',
         'InputEmailFile' => 'inputEmailFile'
     };
 
@@ -78,6 +85,7 @@ public class SwagAdvancedEmailDetectionRequest implements Swagger.MappedProperti
         advancedEmailDetectionRequest.htmlBody = 'aeiou';
         advancedEmailDetectionRequest.allowLowReputationSenders = true;
         advancedEmailDetectionRequest.allowSanctioned = true;
+        advancedEmailDetectionRequest.customPolicyID = 'aeiou';
         advancedEmailDetectionRequest.inputEmailFile = EncodingUtil.base64Decode('VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wZWQgb3ZlciB0aGUgbGF6eSBkb2cu');
         return advancedEmailDetectionRequest;
     }
@@ -91,6 +99,7 @@ public class SwagAdvancedEmailDetectionRequest implements Swagger.MappedProperti
                 && this.htmlBody == advancedEmailDetectionRequest.htmlBody
                 && this.allowLowReputationSenders == advancedEmailDetectionRequest.allowLowReputationSenders
                 && this.allowSanctioned == advancedEmailDetectionRequest.allowSanctioned
+                && this.customPolicyID == advancedEmailDetectionRequest.customPolicyID
                 && this.inputEmailFile == advancedEmailDetectionRequest.inputEmailFile;
         }
         return false;
@@ -104,6 +113,7 @@ public class SwagAdvancedEmailDetectionRequest implements Swagger.MappedProperti
         hashCode = (17 * hashCode) + (htmlBody == null ? 0 : System.hashCode(htmlBody));
         hashCode = (17 * hashCode) + (allowLowReputationSenders == null ? 0 : System.hashCode(allowLowReputationSenders));
         hashCode = (17 * hashCode) + (allowSanctioned == null ? 0 : System.hashCode(allowSanctioned));
+        hashCode = (17 * hashCode) + (customPolicyID == null ? 0 : System.hashCode(customPolicyID));
         hashCode = (17 * hashCode) + (inputEmailFile == null ? 0 : System.hashCode(inputEmailFile));
         return hashCode;
     }

@@ -84,6 +84,7 @@ private class SwagPhishingDetectionAdvancedResponsTest {
         Map<String, String> propertyMappings = phishingDetectionAdvancedResponse.getPropertyMappings();
         System.assertEquals('cleanResult', propertyMappings.get('CleanResult'));
         System.assertEquals('phishingRiskLevel', propertyMappings.get('PhishingRiskLevel'));
+        System.assertEquals('confidenceLevel', propertyMappings.get('ConfidenceLevel'));
         System.assertEquals('analysisRationale', propertyMappings.get('AnalysisRationale'));
     }
 }

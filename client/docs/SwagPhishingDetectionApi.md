@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**phishingDetectFileAdvancedPost**](SwagPhishingDetectionApi.md#phishingDetectFileAdvancedPost) | **POST** /phishing/detect/file/advanced | Perform advanced AI phishing detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learning to detect phishing, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
 [**phishingDetectFilePost**](SwagPhishingDetectionApi.md#phishingDetectFilePost) | **POST** /phishing/detect/file | Perform AI phishing detection and classification on an input image or document (PDF or DOCX).  Analyzes input content as well as embedded URLs with AI deep learnign to detect phishing and other unsafe content.  Uses 100-125 API calls depending on model selected.
 [**phishingDetectTextStringAdvancedPost**](SwagPhishingDetectionApi.md#phishingDetectTextStringAdvancedPost) | **POST** /phishing/detect/text-string/advanced | Perform advanced AI phishing detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learnign to detect spam, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
+[**phishingDetectUrlAdvancedPost**](SwagPhishingDetectionApi.md#phishingDetectUrlAdvancedPost) | **POST** /phishing/detect/url/advanced | Perform advanced AI phishing detection and classification against an input URL.  Retrieves the URL content, checks for SSRF threats, and analyzes the page with AI deep learning to detect phishing and other unsafe content.  Uses 100-125 API calls.
 
 
 <a name="phishingDetectEmailAdvancedPost"></a>
@@ -59,7 +60,7 @@ Name | Type | Description  | Notes
 
 <a name="phishingDetectFileAdvancedPost"></a>
 # **phishingDetectFileAdvancedPost**
-> SwagPhishingDetectionAdvancedRespons phishingDetectFileAdvancedPost(model, inputFile)
+> SwagPhishingDetectionAdvancedRespons phishingDetectFileAdvancedPost(model, customPolicyId, inputFile)
 
 Perform advanced AI phishing detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learning to detect phishing, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
 
@@ -74,6 +75,7 @@ Apikey.setApiKey('YOUR API KEY');
 
 Map<String, Object> params = new Map<String, Object>{
     'model' => 'model_example',
+    'customPolicyId' => 'customPolicyId_example',
     'inputFile' => Blob.valueOf('Sample text file\nContents')
 };
 
@@ -91,6 +93,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **model** | **String**|  | [optional] [default to Advanced]
+ **customPolicyId** | **String**|  | [optional]
  **inputFile** | **Blob**|  | [optional]
 
 ### Return type
@@ -192,6 +195,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SwagPhishingDetectionAdvancedRespons**](SwagPhishingDetectionAdvancedRespons.md)
+
+### Authorization
+
+[Apikey](../README.md#Apikey)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="phishingDetectUrlAdvancedPost"></a>
+# **phishingDetectUrlAdvancedPost**
+> SwagPhishingDetectionUrlAdvancedResp phishingDetectUrlAdvancedPost(body)
+
+Perform advanced AI phishing detection and classification against an input URL.  Retrieves the URL content, checks for SSRF threats, and analyzes the page with AI deep learning to detect phishing and other unsafe content.  Uses 100-125 API calls.
+
+### Example
+```java
+SwagPhishingDetectionApi api = new SwagPhishingDetectionApi();
+SwagClient client = api.getClient();
+
+// Configure API key authorization: Apikey
+ApiKeyAuth Apikey = (ApiKeyAuth) client.getAuthentication('Apikey');
+Apikey.setApiKey('YOUR API KEY');
+
+Map<String, Object> params = new Map<String, Object>{
+    'body' => SwagAdvancedUrlDetectionRequest.getExample()
+};
+
+try {
+    // cross your fingers
+    SwagPhishingDetectionUrlAdvancedResp result = api.phishingDetectUrlAdvancedPost(params);
+    System.debug(result);
+} catch (Swagger.ApiException e) {
+    // ...handle your exceptions
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**SwagAdvancedUrlDetectionRequest**](SwagAdvancedUrlDetectionRequest.md)| URL phishing detection request | [optional]
+
+### Return type
+
+[**SwagPhishingDetectionUrlAdvancedResp**](SwagPhishingDetectionUrlAdvancedResp.md)
 
 ### Authorization
 

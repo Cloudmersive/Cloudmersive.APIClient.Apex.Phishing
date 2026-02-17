@@ -102,6 +102,11 @@
             "default": "Advanced"
           },
           {
+            "in": "header",
+            "name": "customPolicyId",
+            "type": "string"
+          },
+          {
             "in": "formData",
             "name": "inputFile",
             "type": "file"
@@ -152,6 +157,42 @@
           }
         }
       }
+    },
+    "/phishing/detect/url/advanced": {
+      "post": {
+        "tags": [
+          "PhishingDetection"
+        ],
+        "summary": "Perform advanced AI phishing detection and classification against an input URL.  Retrieves the URL content, checks for SSRF threats, and analyzes the page with AI deep learning to detect phishing and other unsafe content.  Uses 100-125 API calls.",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "URL phishing detection request",
+            "schema": {
+              "$ref": "#/definitions/AdvancedUrlDetectionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PhishingDetectionUrlAdvancedResponse"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -183,8 +224,28 @@
           "description": "True to allow sanctioned countries and certain known sanctioned entities, false otherwise (default)",
           "type": "boolean"
         },
+        "CustomPolicyID": {
+          "description": "Apply a Custom Policy for Phishing Enforcement by providing the ID; to create a Custom Policy,\r\nnavigate to the Cloudmersive Management Portal and select Custom Policies.\r\nRequires Managed Instance or Private Cloud",
+          "type": "string"
+        },
         "InputEmailFile": {
           "format": "byte",
+          "description": "Optional: Input email file bytes (EML, PDF, etc.).  If not provided, HtmlBody will be used instead.",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "AdvancedUrlDetectionRequest": {
+      "description": "Request to detect phishing from a URL",
+      "type": "object",
+      "properties": {
+        "Url": {
+          "description": "URL to check for phishing",
+          "type": "string"
+        },
+        "CustomPolicyID": {
+          "description": "Apply a Custom Policy for Phishing Enforcement by providing the ID; to create a Custom Policy,\r\nnavigate to the Cloudmersive Management Portal and select Custom Policies.\r\nRequires Managed Instance or Private Cloud",
           "type": "string"
         }
       },
@@ -201,6 +262,42 @@
         "Model": {
           "description": "Optional: Specify which AI model to use.  Possible choices are Normal and Advanced.  Default is Advanced.",
           "type": "string"
+        },
+        "CustomPolicyID": {
+          "description": "Apply a Custom Policy for Phishing Enforcement by providing the ID; to create a Custom Policy,\r\nnavigate to the Cloudmersive Management Portal and select Custom Policies.\r\nRequires Managed Instance or Private Cloud",
+          "type": "string"
+        },
+        "ProvideAnalysisRationale": {
+          "description": "Optional: Set to true to include an analysis rationale in the response explaining why the content was or was not flagged.  Default is true.",
+          "type": "boolean"
+        },
+        "TextType": {
+          "description": "Optional: Type of text being analyzed. Must be one of: \"Text Message\", \"User Message\", \"Sales Lead\", \"Email Message\", \"Support Case\", \"Other\".",
+          "type": "string"
+        },
+        "FromName": {
+          "description": "Optional: Name of the sender",
+          "type": "string"
+        },
+        "ToName": {
+          "description": "Optional: Name of the recipient",
+          "type": "string"
+        },
+        "FromPhoneNumber": {
+          "description": "Optional: Phone number of the sender",
+          "type": "string"
+        },
+        "ToPhoneNumber": {
+          "description": "Optional: Phone number of the recipient",
+          "type": "string"
+        },
+        "FromEmailAddress": {
+          "description": "Optional: Email address of the sender",
+          "type": "string"
+        },
+        "ToEmailAddress": {
+          "description": "Optional: Email address of the recipient",
+          "type": "string"
         }
       },
       "additionalProperties": false
@@ -216,6 +313,11 @@
         "PhishingRiskLevel": {
           "format": "double",
           "description": "Overall phishing risk level between 0.0 and 1.0",
+          "type": "number"
+        },
+        "ConfidenceLevel": {
+          "format": "double",
+          "description": "Confidence level between 0.0 and 1.0 where values over 0.9 indicate high confidence",
           "type": "number"
         },
         "AnalysisRationale": {
@@ -281,6 +383,46 @@
         "CleanResult": {
           "description": "True if the result is not phishing (clean), and false otherwise",
           "type": "boolean"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PhishingDetectionUrlAdvancedResponse": {
+      "description": "Result of detecting phishing from a URL using AI",
+      "type": "object",
+      "properties": {
+        "CleanResult": {
+          "description": "True if the result is not phishing (clean), and false otherwise",
+          "type": "boolean"
+        },
+        "PhishingRiskLevel": {
+          "format": "double",
+          "description": "Overall phishing risk level between 0.0 and 1.0",
+          "type": "number"
+        },
+        "IsSsrfThreat": {
+          "description": "True if the URL is an SSRF threat",
+          "type": "boolean"
+        },
+        "ContainsPhishing": {
+          "description": "True if the URL contains phishing threat risks, false otherwise",
+          "type": "boolean"
+        },
+        "ContainsUnsolicitedSales": {
+          "description": "True if the URL contains unsolicited sales, false otherwise",
+          "type": "boolean"
+        },
+        "ContainsPromotionalContent": {
+          "description": "True if the URL contains promotional content, false otherwise",
+          "type": "boolean"
+        },
+        "ContainsPhishingAttempt": {
+          "description": "True if the URL contains a phishing attempt, false otherwise",
+          "type": "boolean"
+        },
+        "AnalysisRationale": {
+          "description": "Rationale for why the conclusion was formed",
+          "type": "string"
         }
       },
       "additionalProperties": false

@@ -52,6 +52,7 @@ public class SwagPhishingDetectionApi {
      * Perform advanced AI phishing detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learning to detect phishing, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
      * 
      * @param model  (optional, default to Advanced)
+     * @param customPolicyId  (optional)
      * @param inputFile  (optional)
      * @return SwagPhishingDetectionAdvancedRespons
      * @throws Swagger.ApiException if fails to make API call
@@ -68,7 +69,8 @@ public class SwagPhishingDetectionApi {
             query, form,
             new Map<String, Object>(),
             new Map<String, Object>{
-                'model' => (String) params.get('model')
+                'model' => (String) params.get('model'),
+                'customPolicyId' => (String) params.get('customPolicyId')
             },
             new List<String>{ 'application/json' },
             new List<String>{ 'application/x-www-form-urlencoded' },
@@ -125,6 +127,29 @@ public class SwagPhishingDetectionApi {
             new List<String>{ 'application/json' },
             new List<String> { 'Apikey' },
             SwagPhishingDetectionAdvancedRespons.class
+        );
+    }
+    /**
+     * Perform advanced AI phishing detection and classification against an input URL.  Retrieves the URL content, checks for SSRF threats, and analyzes the page with AI deep learning to detect phishing and other unsafe content.  Uses 100-125 API calls.
+     * 
+     * @param body URL phishing detection request (optional)
+     * @return SwagPhishingDetectionUrlAdvancedResp
+     * @throws Swagger.ApiException if fails to make API call
+     */
+    public SwagPhishingDetectionUrlAdvancedResp phishingDetectUrlAdvancedPost(Map<String, Object> params) {
+        List<Swagger.Param> query = new List<Swagger.Param>();
+        List<Swagger.Param> form = new List<Swagger.Param>();
+
+        return (SwagPhishingDetectionUrlAdvancedResp) client.invoke(
+            'POST', '/phishing/detect/url/advanced',
+            (SwagAdvancedUrlDetectionRequest) params.get('body'),
+            query, form,
+            new Map<String, Object>(),
+            new Map<String, Object>(),
+            new List<String>{ 'application/json' },
+            new List<String>{ 'application/json' },
+            new List<String> { 'Apikey' },
+            SwagPhishingDetectionUrlAdvancedResp.class
         );
     }
 }

@@ -69,15 +69,18 @@ Class | Method | HTTP request | Description
 *SwagPhishingDetectionApi* | [**phishingDetectFileAdvancedPost**](docs/SwagPhishingDetectionApi.md#phishingDetectFileAdvancedPost) | **POST** /phishing/detect/file/advanced | Perform advanced AI phishing detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learning to detect phishing, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
 *SwagPhishingDetectionApi* | [**phishingDetectFilePost**](docs/SwagPhishingDetectionApi.md#phishingDetectFilePost) | **POST** /phishing/detect/file | Perform AI phishing detection and classification on an input image or document (PDF or DOCX).  Analyzes input content as well as embedded URLs with AI deep learnign to detect phishing and other unsafe content.  Uses 100-125 API calls depending on model selected.
 *SwagPhishingDetectionApi* | [**phishingDetectTextStringAdvancedPost**](docs/SwagPhishingDetectionApi.md#phishingDetectTextStringAdvancedPost) | **POST** /phishing/detect/text-string/advanced | Perform advanced AI phishing detection and classification against input text string.  Analyzes input content as well as embedded URLs with AI deep learnign to detect spam, phishing and other unsafe content.  Uses 25-100 API calls depending on model selected.
+*SwagPhishingDetectionApi* | [**phishingDetectUrlAdvancedPost**](docs/SwagPhishingDetectionApi.md#phishingDetectUrlAdvancedPost) | **POST** /phishing/detect/url/advanced | Perform advanced AI phishing detection and classification against an input URL.  Retrieves the URL content, checks for SSRF threats, and analyzes the page with AI deep learning to detect phishing and other unsafe content.  Uses 100-125 API calls.
 
 
 ## Documentation for Models
 
  - [SwagAdvancedEmailDetectionRequest](docs/SwagAdvancedEmailDetectionRequest.md)
+ - [SwagAdvancedUrlDetectionRequest](docs/SwagAdvancedUrlDetectionRequest.md)
  - [SwagPhishingDetectionAdvancedRequest](docs/SwagPhishingDetectionAdvancedRequest.md)
  - [SwagPhishingDetectionAdvancedRespons](docs/SwagPhishingDetectionAdvancedRespons.md)
  - [SwagPhishingDetectionEmailAdvancedRe](docs/SwagPhishingDetectionEmailAdvancedRe.md)
  - [SwagPhishingDetectionResponse](docs/SwagPhishingDetectionResponse.md)
+ - [SwagPhishingDetectionUrlAdvancedResp](docs/SwagPhishingDetectionUrlAdvancedResp.md)
 
 
 ## Documentation for Authorization

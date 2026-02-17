@@ -26,9 +26,72 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
      */
     public String model { get; set; }
 
+    /**
+     * Apply a Custom Policy for Phishing Enforcement by providing the ID; to create a Custom Policy,\r\nnavigate to the Cloudmersive Management Portal and select Custom Policies.\r\nRequires Managed Instance or Private Cloud
+     * @return customPolicyID
+     */
+    public String customPolicyID { get; set; }
+
+    /**
+     * Optional: Set to true to include an analysis rationale in the response explaining why the content was or was not flagged.  Default is true.
+     * @return provideAnalysisRationale
+     */
+    public Boolean provideAnalysisRationale { get; set; }
+
+    /**
+     * Optional: Type of text being analyzed. Must be one of: "Text Message", "User Message", "Sales Lead", "Email Message", "Support Case", "Other".
+     * @return textType
+     */
+    public String textType { get; set; }
+
+    /**
+     * Optional: Name of the sender
+     * @return fromName
+     */
+    public String fromName { get; set; }
+
+    /**
+     * Optional: Name of the recipient
+     * @return toName
+     */
+    public String toName { get; set; }
+
+    /**
+     * Optional: Phone number of the sender
+     * @return fromPhoneNumber
+     */
+    public String fromPhoneNumber { get; set; }
+
+    /**
+     * Optional: Phone number of the recipient
+     * @return toPhoneNumber
+     */
+    public String toPhoneNumber { get; set; }
+
+    /**
+     * Optional: Email address of the sender
+     * @return fromEmailAddress
+     */
+    public String fromEmailAddress { get; set; }
+
+    /**
+     * Optional: Email address of the recipient
+     * @return toEmailAddress
+     */
+    public String toEmailAddress { get; set; }
+
     private static final Map<String, String> propertyMappings = new Map<String, String>{
         'InputString' => 'inputString',
-        'Model' => 'model'
+        'Model' => 'model',
+        'CustomPolicyID' => 'customPolicyID',
+        'ProvideAnalysisRationale' => 'provideAnalysisRationale',
+        'TextType' => 'textType',
+        'FromName' => 'fromName',
+        'ToName' => 'toName',
+        'FromPhoneNumber' => 'fromPhoneNumber',
+        'ToPhoneNumber' => 'toPhoneNumber',
+        'FromEmailAddress' => 'fromEmailAddress',
+        'ToEmailAddress' => 'toEmailAddress'
     };
 
     public Map<String, String> getPropertyMappings() {
@@ -39,6 +102,15 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
         SwagPhishingDetectionAdvancedRequest phishingDetectionAdvancedRequest = new SwagPhishingDetectionAdvancedRequest();
         phishingDetectionAdvancedRequest.inputString = 'aeiou';
         phishingDetectionAdvancedRequest.model = 'aeiou';
+        phishingDetectionAdvancedRequest.customPolicyID = 'aeiou';
+        phishingDetectionAdvancedRequest.provideAnalysisRationale = true;
+        phishingDetectionAdvancedRequest.textType = 'aeiou';
+        phishingDetectionAdvancedRequest.fromName = 'aeiou';
+        phishingDetectionAdvancedRequest.toName = 'aeiou';
+        phishingDetectionAdvancedRequest.fromPhoneNumber = 'aeiou';
+        phishingDetectionAdvancedRequest.toPhoneNumber = 'aeiou';
+        phishingDetectionAdvancedRequest.fromEmailAddress = 'aeiou';
+        phishingDetectionAdvancedRequest.toEmailAddress = 'aeiou';
         return phishingDetectionAdvancedRequest;
     }
 
@@ -46,7 +118,16 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
         if (obj instanceof SwagPhishingDetectionAdvancedRequest) {
             SwagPhishingDetectionAdvancedRequest phishingDetectionAdvancedRequest = (SwagPhishingDetectionAdvancedRequest) obj;
             return this.inputString == phishingDetectionAdvancedRequest.inputString
-                && this.model == phishingDetectionAdvancedRequest.model;
+                && this.model == phishingDetectionAdvancedRequest.model
+                && this.customPolicyID == phishingDetectionAdvancedRequest.customPolicyID
+                && this.provideAnalysisRationale == phishingDetectionAdvancedRequest.provideAnalysisRationale
+                && this.textType == phishingDetectionAdvancedRequest.textType
+                && this.fromName == phishingDetectionAdvancedRequest.fromName
+                && this.toName == phishingDetectionAdvancedRequest.toName
+                && this.fromPhoneNumber == phishingDetectionAdvancedRequest.fromPhoneNumber
+                && this.toPhoneNumber == phishingDetectionAdvancedRequest.toPhoneNumber
+                && this.fromEmailAddress == phishingDetectionAdvancedRequest.fromEmailAddress
+                && this.toEmailAddress == phishingDetectionAdvancedRequest.toEmailAddress;
         }
         return false;
     }
@@ -55,6 +136,15 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
         Integer hashCode = 43;
         hashCode = (17 * hashCode) + (inputString == null ? 0 : System.hashCode(inputString));
         hashCode = (17 * hashCode) + (model == null ? 0 : System.hashCode(model));
+        hashCode = (17 * hashCode) + (customPolicyID == null ? 0 : System.hashCode(customPolicyID));
+        hashCode = (17 * hashCode) + (provideAnalysisRationale == null ? 0 : System.hashCode(provideAnalysisRationale));
+        hashCode = (17 * hashCode) + (textType == null ? 0 : System.hashCode(textType));
+        hashCode = (17 * hashCode) + (fromName == null ? 0 : System.hashCode(fromName));
+        hashCode = (17 * hashCode) + (toName == null ? 0 : System.hashCode(toName));
+        hashCode = (17 * hashCode) + (fromPhoneNumber == null ? 0 : System.hashCode(fromPhoneNumber));
+        hashCode = (17 * hashCode) + (toPhoneNumber == null ? 0 : System.hashCode(toPhoneNumber));
+        hashCode = (17 * hashCode) + (fromEmailAddress == null ? 0 : System.hashCode(fromEmailAddress));
+        hashCode = (17 * hashCode) + (toEmailAddress == null ? 0 : System.hashCode(toEmailAddress));
         return hashCode;
     }
 }
