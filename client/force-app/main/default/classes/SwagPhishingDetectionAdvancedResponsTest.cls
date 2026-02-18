@@ -83,8 +83,29 @@ private class SwagPhishingDetectionAdvancedResponsTest {
         SwagPhishingDetectionAdvancedRespons phishingDetectionAdvancedResponse = new SwagPhishingDetectionAdvancedRespons();
         Map<String, String> propertyMappings = phishingDetectionAdvancedResponse.getPropertyMappings();
         System.assertEquals('cleanResult', propertyMappings.get('CleanResult'));
-        System.assertEquals('phishingRiskLevel', propertyMappings.get('PhishingRiskLevel'));
+        System.assertEquals('containsPhishing', propertyMappings.get('ContainsPhishing'));
+        System.assertEquals('containsUnsolicitedSales', propertyMappings.get('ContainsUnsolicitedSales'));
+        System.assertEquals('containsPromotionalContent', propertyMappings.get('ContainsPromotionalContent'));
+        System.assertEquals('containsWebUrls', propertyMappings.get('ContainsWebUrls'));
+        System.assertEquals('containsPhoneNumbers', propertyMappings.get('ContainsPhoneNumbers'));
+        System.assertEquals('containsEmailAddresses', propertyMappings.get('ContainsEmailAddresses'));
         System.assertEquals('confidenceLevel', propertyMappings.get('ConfidenceLevel'));
         System.assertEquals('analysisRationale', propertyMappings.get('AnalysisRationale'));
+        System.assertEquals('unsafeUrls', propertyMappings.get('UnsafeUrls'));
+    }
+
+    @isTest
+    private static void defaultValuesPopulated() {
+        SwagPhishingDetectionAdvancedRespons phishingDetectionAdvancedResponse = new SwagPhishingDetectionAdvancedRespons();
+        System.assertEquals(new List<SwagUnsafeUrlResult>(), phishingDetectionAdvancedResponse.unsafeUrls);
+        System.assertEquals(null, phishingDetectionAdvancedResponse.cleanResult);
+        System.assertEquals(null, phishingDetectionAdvancedResponse.containsPhishing);
+        System.assertEquals(null, phishingDetectionAdvancedResponse.containsUnsolicitedSales);
+        System.assertEquals(null, phishingDetectionAdvancedResponse.containsPromotionalContent);
+        System.assertEquals(null, phishingDetectionAdvancedResponse.containsWebUrls);
+        System.assertEquals(null, phishingDetectionAdvancedResponse.containsPhoneNumbers);
+        System.assertEquals(null, phishingDetectionAdvancedResponse.containsEmailAddresses);
+        System.assertEquals(null, phishingDetectionAdvancedResponse.confidenceLevel);
+        System.assertEquals(null, phishingDetectionAdvancedResponse.analysisRationale);
     }
 }

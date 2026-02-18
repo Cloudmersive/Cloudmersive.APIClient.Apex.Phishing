@@ -62,7 +62,7 @@ private class SwagPhishingDetectionApiTest {
             client.setApiKey('foo-bar-api-key');
 
         res.setHeader('Content-Type', 'application/json');
-        res.setBody('{\r\n  "PhishingRiskLevel" : 0.8008281904610115,\r\n  "ConfidenceLevel" : 6.027456183070403,\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true\r\n}');
+        res.setBody('{\r\n  "ConfidenceLevel" : 0.8008281904610115,\r\n  "ContainsUnsolicitedSales" : true,\r\n  "ContainsWebUrls" : true,\r\n  "ContainsPhishing" : true,\r\n  "ContainsPhoneNumbers" : true,\r\n  "ContainsEmailAddresses" : true,\r\n  "UnsafeUrls" : [ {\r\n    "IsSsrfThreat" : true,\r\n    "ContainsPhishingAttempt" : true,\r\n    "ContainsPhishing" : true,\r\n    "Url" : "Url",\r\n    "CleanResult" : true\r\n  }, {\r\n    "IsSsrfThreat" : true,\r\n    "ContainsPhishingAttempt" : true,\r\n    "ContainsPhishing" : true,\r\n    "Url" : "Url",\r\n    "CleanResult" : true\r\n  } ],\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true,\r\n  "ContainsPromotionalContent" : true\r\n}');
         expectedResponse = SwagPhishingDetectionAdvancedRespons.getExample();
         response = (SwagPhishingDetectionAdvancedRespons) api.phishingDetectFileAdvancedPost(params);
         System.assertEquals(expectedResponse, response);
@@ -129,9 +129,42 @@ private class SwagPhishingDetectionApiTest {
             client.setApiKey('foo-bar-api-key');
 
         res.setHeader('Content-Type', 'application/json');
-        res.setBody('{\r\n  "PhishingRiskLevel" : 0.8008281904610115,\r\n  "ConfidenceLevel" : 6.027456183070403,\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true\r\n}');
+        res.setBody('{\r\n  "ConfidenceLevel" : 0.8008281904610115,\r\n  "ContainsUnsolicitedSales" : true,\r\n  "ContainsWebUrls" : true,\r\n  "ContainsPhishing" : true,\r\n  "ContainsPhoneNumbers" : true,\r\n  "ContainsEmailAddresses" : true,\r\n  "UnsafeUrls" : [ {\r\n    "IsSsrfThreat" : true,\r\n    "ContainsPhishingAttempt" : true,\r\n    "ContainsPhishing" : true,\r\n    "Url" : "Url",\r\n    "CleanResult" : true\r\n  }, {\r\n    "IsSsrfThreat" : true,\r\n    "ContainsPhishingAttempt" : true,\r\n    "ContainsPhishing" : true,\r\n    "Url" : "Url",\r\n    "CleanResult" : true\r\n  } ],\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true,\r\n  "ContainsPromotionalContent" : true\r\n}');
         expectedResponse = SwagPhishingDetectionAdvancedRespons.getExample();
         response = (SwagPhishingDetectionAdvancedRespons) api.phishingDetectTextStringAdvancedPost(params);
+        System.assertEquals(expectedResponse, response);
+    }
+
+    /**
+     * Perform AI phishing detection against input text string.  Returns a clean/not-clean result with confidence level and optional rationale.
+     *
+     * 
+     */
+    @isTest
+    private static void phishingDetectTextStringPostTest() {
+        HttpResponse res = new HttpResponse();
+        res.setStatusCode(200);
+        res.setStatus('OK');
+        Test.setMock(HttpCalloutMock.class, new SwaggerResponseMock(res));
+
+        Map<String, Object> params = new Map<String, Object>{
+            'body' => SwagPhishingDetectionTextStringReque.getExample()
+        };
+
+        SwagClient client;
+        SwagPhishingDetectionApi api;
+        SwagPhishingDetectionTextStringRespo response;
+        SwagPhishingDetectionTextStringRespo expectedResponse;
+
+        client = new SwagClient();
+        api = new SwagPhishingDetectionApi(client);
+        ((Swagger.ApiKeyAuth) client.getAuthentication('Apikey');
+            client.setApiKey('foo-bar-api-key');
+
+        res.setHeader('Content-Type', 'application/json');
+        res.setBody('{\r\n  "ConfidenceLevel" : 0.8008281904610115,\r\n  "AnalysisRationale" : "AnalysisRationale",\r\n  "CleanResult" : true\r\n}');
+        expectedResponse = SwagPhishingDetectionTextStringRespo.getExample();
+        response = (SwagPhishingDetectionTextStringRespo) api.phishingDetectTextStringPost(params);
         System.assertEquals(expectedResponse, response);
     }
 

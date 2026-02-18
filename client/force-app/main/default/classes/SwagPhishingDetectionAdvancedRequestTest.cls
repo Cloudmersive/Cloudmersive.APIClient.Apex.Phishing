@@ -83,10 +83,16 @@ private class SwagPhishingDetectionAdvancedRequestTest {
         SwagPhishingDetectionAdvancedRequest phishingDetectionAdvancedRequest = new SwagPhishingDetectionAdvancedRequest();
         Map<String, String> propertyMappings = phishingDetectionAdvancedRequest.getPropertyMappings();
         System.assertEquals('inputString', propertyMappings.get('InputString'));
+        System.assertEquals('textType', propertyMappings.get('TextType'));
         System.assertEquals('model', propertyMappings.get('Model'));
+        System.assertEquals('allowUnsolicitedSales', propertyMappings.get('AllowUnsolicitedSales'));
+        System.assertEquals('allowPromotionalContent', propertyMappings.get('AllowPromotionalContent'));
+        System.assertEquals('allowWebUrls', propertyMappings.get('AllowWebUrls'));
+        System.assertEquals('allowPhoneNumbers', propertyMappings.get('AllowPhoneNumbers'));
+        System.assertEquals('allowEmailAddresses', propertyMappings.get('AllowEmailAddresses'));
+        System.assertEquals('provideUrlAnalysis', propertyMappings.get('ProvideUrlAnalysis'));
         System.assertEquals('customPolicyID', propertyMappings.get('CustomPolicyID'));
         System.assertEquals('provideAnalysisRationale', propertyMappings.get('ProvideAnalysisRationale'));
-        System.assertEquals('textType', propertyMappings.get('TextType'));
         System.assertEquals('fromName', propertyMappings.get('FromName'));
         System.assertEquals('toName', propertyMappings.get('ToName'));
         System.assertEquals('fromPhoneNumber', propertyMappings.get('FromPhoneNumber'));

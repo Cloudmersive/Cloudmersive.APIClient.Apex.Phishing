@@ -21,10 +21,40 @@ public class SwagPhishingDetectionAdvancedRespons implements Swagger.MappedPrope
     public Boolean cleanResult { get; set; }
 
     /**
-     * Overall phishing risk level between 0.0 and 1.0
-     * @return phishingRiskLevel
+     * True if the input text contains a phishing attempt, false otherwise
+     * @return containsPhishing
      */
-    public Double phishingRiskLevel { get; set; }
+    public Boolean containsPhishing { get; set; }
+
+    /**
+     * True if the input text contains unsolicited sales, false otherwise
+     * @return containsUnsolicitedSales
+     */
+    public Boolean containsUnsolicitedSales { get; set; }
+
+    /**
+     * True if the input text contains promotional content, false otherwise
+     * @return containsPromotionalContent
+     */
+    public Boolean containsPromotionalContent { get; set; }
+
+    /**
+     * True if the input text contains web URLs, including homoglyph URLs and spaced-out URL workarounds
+     * @return containsWebUrls
+     */
+    public Boolean containsWebUrls { get; set; }
+
+    /**
+     * True if the input text contains phone numbers, including homoglyph digits and spaced-out or spelled-out workarounds
+     * @return containsPhoneNumbers
+     */
+    public Boolean containsPhoneNumbers { get; set; }
+
+    /**
+     * True if the input text contains email addresses, including homoglyph characters and obfuscated workarounds
+     * @return containsEmailAddresses
+     */
+    public Boolean containsEmailAddresses { get; set; }
 
     /**
      * Confidence level between 0.0 and 1.0 where values over 0.9 indicate high confidence
@@ -38,23 +68,45 @@ public class SwagPhishingDetectionAdvancedRespons implements Swagger.MappedPrope
      */
     public String analysisRationale { get; set; }
 
+    /**
+     * URLs detected in the input text that were analyzed and found to be unsafe. Only populated when ProvideUrlAnalysis is true and URLs are detected.
+     * @return unsafeUrls
+     */
+    public List<SwagUnsafeUrlResult> unsafeUrls { get; set; }
+
     private static final Map<String, String> propertyMappings = new Map<String, String>{
         'CleanResult' => 'cleanResult',
-        'PhishingRiskLevel' => 'phishingRiskLevel',
+        'ContainsPhishing' => 'containsPhishing',
+        'ContainsUnsolicitedSales' => 'containsUnsolicitedSales',
+        'ContainsPromotionalContent' => 'containsPromotionalContent',
+        'ContainsWebUrls' => 'containsWebUrls',
+        'ContainsPhoneNumbers' => 'containsPhoneNumbers',
+        'ContainsEmailAddresses' => 'containsEmailAddresses',
         'ConfidenceLevel' => 'confidenceLevel',
-        'AnalysisRationale' => 'analysisRationale'
+        'AnalysisRationale' => 'analysisRationale',
+        'UnsafeUrls' => 'unsafeUrls'
     };
 
     public Map<String, String> getPropertyMappings() {
         return propertyMappings;
     }
 
+    public SwagPhishingDetectionAdvancedRespons() {
+        unsafeUrls = new List<SwagUnsafeUrlResult>();
+    }
+
     public static SwagPhishingDetectionAdvancedRespons getExample() {
         SwagPhishingDetectionAdvancedRespons phishingDetectionAdvancedResponse = new SwagPhishingDetectionAdvancedRespons();
         phishingDetectionAdvancedResponse.cleanResult = true;
-        phishingDetectionAdvancedResponse.phishingRiskLevel = 1.3579;
+        phishingDetectionAdvancedResponse.containsPhishing = true;
+        phishingDetectionAdvancedResponse.containsUnsolicitedSales = true;
+        phishingDetectionAdvancedResponse.containsPromotionalContent = true;
+        phishingDetectionAdvancedResponse.containsWebUrls = true;
+        phishingDetectionAdvancedResponse.containsPhoneNumbers = true;
+        phishingDetectionAdvancedResponse.containsEmailAddresses = true;
         phishingDetectionAdvancedResponse.confidenceLevel = 1.3579;
         phishingDetectionAdvancedResponse.analysisRationale = 'aeiou';
+        phishingDetectionAdvancedResponse.unsafeUrls = new List<SwagUnsafeUrlResult>{SwagUnsafeUrlResult.getExample()};
         return phishingDetectionAdvancedResponse;
     }
 
@@ -62,9 +114,15 @@ public class SwagPhishingDetectionAdvancedRespons implements Swagger.MappedPrope
         if (obj instanceof SwagPhishingDetectionAdvancedRespons) {
             SwagPhishingDetectionAdvancedRespons phishingDetectionAdvancedResponse = (SwagPhishingDetectionAdvancedRespons) obj;
             return this.cleanResult == phishingDetectionAdvancedResponse.cleanResult
-                && this.phishingRiskLevel == phishingDetectionAdvancedResponse.phishingRiskLevel
+                && this.containsPhishing == phishingDetectionAdvancedResponse.containsPhishing
+                && this.containsUnsolicitedSales == phishingDetectionAdvancedResponse.containsUnsolicitedSales
+                && this.containsPromotionalContent == phishingDetectionAdvancedResponse.containsPromotionalContent
+                && this.containsWebUrls == phishingDetectionAdvancedResponse.containsWebUrls
+                && this.containsPhoneNumbers == phishingDetectionAdvancedResponse.containsPhoneNumbers
+                && this.containsEmailAddresses == phishingDetectionAdvancedResponse.containsEmailAddresses
                 && this.confidenceLevel == phishingDetectionAdvancedResponse.confidenceLevel
-                && this.analysisRationale == phishingDetectionAdvancedResponse.analysisRationale;
+                && this.analysisRationale == phishingDetectionAdvancedResponse.analysisRationale
+                && this.unsafeUrls == phishingDetectionAdvancedResponse.unsafeUrls;
         }
         return false;
     }
@@ -72,9 +130,15 @@ public class SwagPhishingDetectionAdvancedRespons implements Swagger.MappedPrope
     public Integer hashCode() {
         Integer hashCode = 43;
         hashCode = (17 * hashCode) + (cleanResult == null ? 0 : System.hashCode(cleanResult));
-        hashCode = (17 * hashCode) + (phishingRiskLevel == null ? 0 : System.hashCode(phishingRiskLevel));
+        hashCode = (17 * hashCode) + (containsPhishing == null ? 0 : System.hashCode(containsPhishing));
+        hashCode = (17 * hashCode) + (containsUnsolicitedSales == null ? 0 : System.hashCode(containsUnsolicitedSales));
+        hashCode = (17 * hashCode) + (containsPromotionalContent == null ? 0 : System.hashCode(containsPromotionalContent));
+        hashCode = (17 * hashCode) + (containsWebUrls == null ? 0 : System.hashCode(containsWebUrls));
+        hashCode = (17 * hashCode) + (containsPhoneNumbers == null ? 0 : System.hashCode(containsPhoneNumbers));
+        hashCode = (17 * hashCode) + (containsEmailAddresses == null ? 0 : System.hashCode(containsEmailAddresses));
         hashCode = (17 * hashCode) + (confidenceLevel == null ? 0 : System.hashCode(confidenceLevel));
         hashCode = (17 * hashCode) + (analysisRationale == null ? 0 : System.hashCode(analysisRationale));
+        hashCode = (17 * hashCode) + (unsafeUrls == null ? 0 : System.hashCode(unsafeUrls));
         return hashCode;
     }
 }

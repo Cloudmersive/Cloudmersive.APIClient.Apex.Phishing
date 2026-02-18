@@ -21,10 +21,52 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
     public String inputString { get; set; }
 
     /**
+     * Optional: Type of text being analyzed. Must be one of: "TextMessage", "UserMessage", "SalesLead", "EmailMessage", "SupportCase", "AppMessage", "Other".
+     * @return textType
+     */
+    public String textType { get; set; }
+
+    /**
      * Optional: Specify which AI model to use.  Possible choices are Normal and Advanced.  Default is Advanced.
      * @return model
      */
     public String model { get; set; }
+
+    /**
+     * Optional: True if unsolicited sales should be allowed, false otherwise. Defaults to true.
+     * @return allowUnsolicitedSales
+     */
+    public Boolean allowUnsolicitedSales { get; set; }
+
+    /**
+     * Optional: True if promotional content should be allowed, false otherwise. Defaults to true.
+     * @return allowPromotionalContent
+     */
+    public Boolean allowPromotionalContent { get; set; }
+
+    /**
+     * Optional: True if web URLs should be allowed in the input text, false otherwise. Defaults to true. When false, input containing URLs (including homoglyph URLs and spaced-out URLs) will be flagged as not clean.
+     * @return allowWebUrls
+     */
+    public Boolean allowWebUrls { get; set; }
+
+    /**
+     * Optional: True if phone numbers should be allowed in the input text, false otherwise. Defaults to true. When false, input containing phone numbers (including homoglyph digits and spaced-out or spelled-out workarounds) will be flagged as not clean.
+     * @return allowPhoneNumbers
+     */
+    public Boolean allowPhoneNumbers { get; set; }
+
+    /**
+     * Optional: True if email addresses should be allowed in the input text, false otherwise. Defaults to true. When false, input containing email addresses (including homoglyph characters and obfuscated workarounds like "danny at somedomaine [DOT] com") will be flagged as not clean.
+     * @return allowEmailAddresses
+     */
+    public Boolean allowEmailAddresses { get; set; }
+
+    /**
+     * Optional: True to perform deep URL analysis on any URLs detected in the text. When enabled, if the initial AI scan detects URLs, a second AI call enumerates them and each URL is individually analyzed for phishing. Defaults to true.
+     * @return provideUrlAnalysis
+     */
+    public Boolean provideUrlAnalysis { get; set; }
 
     /**
      * Apply a Custom Policy for Phishing Enforcement by providing the ID; to create a Custom Policy,\r\nnavigate to the Cloudmersive Management Portal and select Custom Policies.\r\nRequires Managed Instance or Private Cloud
@@ -37,12 +79,6 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
      * @return provideAnalysisRationale
      */
     public Boolean provideAnalysisRationale { get; set; }
-
-    /**
-     * Optional: Type of text being analyzed. Must be one of: "Text Message", "User Message", "Sales Lead", "Email Message", "Support Case", "Other".
-     * @return textType
-     */
-    public String textType { get; set; }
 
     /**
      * Optional: Name of the sender
@@ -82,10 +118,16 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
 
     private static final Map<String, String> propertyMappings = new Map<String, String>{
         'InputString' => 'inputString',
+        'TextType' => 'textType',
         'Model' => 'model',
+        'AllowUnsolicitedSales' => 'allowUnsolicitedSales',
+        'AllowPromotionalContent' => 'allowPromotionalContent',
+        'AllowWebUrls' => 'allowWebUrls',
+        'AllowPhoneNumbers' => 'allowPhoneNumbers',
+        'AllowEmailAddresses' => 'allowEmailAddresses',
+        'ProvideUrlAnalysis' => 'provideUrlAnalysis',
         'CustomPolicyID' => 'customPolicyID',
         'ProvideAnalysisRationale' => 'provideAnalysisRationale',
-        'TextType' => 'textType',
         'FromName' => 'fromName',
         'ToName' => 'toName',
         'FromPhoneNumber' => 'fromPhoneNumber',
@@ -100,17 +142,23 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
 
     public static SwagPhishingDetectionAdvancedRequest getExample() {
         SwagPhishingDetectionAdvancedRequest phishingDetectionAdvancedRequest = new SwagPhishingDetectionAdvancedRequest();
-        phishingDetectionAdvancedRequest.inputString = 'aeiou';
-        phishingDetectionAdvancedRequest.model = 'aeiou';
+        phishingDetectionAdvancedRequest.inputString = 'Hello, world!';
+        phishingDetectionAdvancedRequest.textType = 'TextMessage';
+        phishingDetectionAdvancedRequest.model = 'Advanced';
+        phishingDetectionAdvancedRequest.allowUnsolicitedSales = true;
+        phishingDetectionAdvancedRequest.allowPromotionalContent = true;
+        phishingDetectionAdvancedRequest.allowWebUrls = true;
+        phishingDetectionAdvancedRequest.allowPhoneNumbers = true;
+        phishingDetectionAdvancedRequest.allowEmailAddresses = true;
+        phishingDetectionAdvancedRequest.provideUrlAnalysis = true;
         phishingDetectionAdvancedRequest.customPolicyID = 'aeiou';
         phishingDetectionAdvancedRequest.provideAnalysisRationale = true;
-        phishingDetectionAdvancedRequest.textType = 'aeiou';
-        phishingDetectionAdvancedRequest.fromName = 'aeiou';
-        phishingDetectionAdvancedRequest.toName = 'aeiou';
-        phishingDetectionAdvancedRequest.fromPhoneNumber = 'aeiou';
-        phishingDetectionAdvancedRequest.toPhoneNumber = 'aeiou';
-        phishingDetectionAdvancedRequest.fromEmailAddress = 'aeiou';
-        phishingDetectionAdvancedRequest.toEmailAddress = 'aeiou';
+        phishingDetectionAdvancedRequest.fromName = 'John Smith';
+        phishingDetectionAdvancedRequest.toName = 'Jane Doe';
+        phishingDetectionAdvancedRequest.fromPhoneNumber = '+1-555-123-4567';
+        phishingDetectionAdvancedRequest.toPhoneNumber = '+1-555-987-6543';
+        phishingDetectionAdvancedRequest.fromEmailAddress = 'john.smith@cloudmersive.com';
+        phishingDetectionAdvancedRequest.toEmailAddress = 'jane.doe@cloudmersive.com';
         return phishingDetectionAdvancedRequest;
     }
 
@@ -118,10 +166,16 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
         if (obj instanceof SwagPhishingDetectionAdvancedRequest) {
             SwagPhishingDetectionAdvancedRequest phishingDetectionAdvancedRequest = (SwagPhishingDetectionAdvancedRequest) obj;
             return this.inputString == phishingDetectionAdvancedRequest.inputString
+                && this.textType == phishingDetectionAdvancedRequest.textType
                 && this.model == phishingDetectionAdvancedRequest.model
+                && this.allowUnsolicitedSales == phishingDetectionAdvancedRequest.allowUnsolicitedSales
+                && this.allowPromotionalContent == phishingDetectionAdvancedRequest.allowPromotionalContent
+                && this.allowWebUrls == phishingDetectionAdvancedRequest.allowWebUrls
+                && this.allowPhoneNumbers == phishingDetectionAdvancedRequest.allowPhoneNumbers
+                && this.allowEmailAddresses == phishingDetectionAdvancedRequest.allowEmailAddresses
+                && this.provideUrlAnalysis == phishingDetectionAdvancedRequest.provideUrlAnalysis
                 && this.customPolicyID == phishingDetectionAdvancedRequest.customPolicyID
                 && this.provideAnalysisRationale == phishingDetectionAdvancedRequest.provideAnalysisRationale
-                && this.textType == phishingDetectionAdvancedRequest.textType
                 && this.fromName == phishingDetectionAdvancedRequest.fromName
                 && this.toName == phishingDetectionAdvancedRequest.toName
                 && this.fromPhoneNumber == phishingDetectionAdvancedRequest.fromPhoneNumber
@@ -135,10 +189,16 @@ public class SwagPhishingDetectionAdvancedRequest implements Swagger.MappedPrope
     public Integer hashCode() {
         Integer hashCode = 43;
         hashCode = (17 * hashCode) + (inputString == null ? 0 : System.hashCode(inputString));
+        hashCode = (17 * hashCode) + (textType == null ? 0 : System.hashCode(textType));
         hashCode = (17 * hashCode) + (model == null ? 0 : System.hashCode(model));
+        hashCode = (17 * hashCode) + (allowUnsolicitedSales == null ? 0 : System.hashCode(allowUnsolicitedSales));
+        hashCode = (17 * hashCode) + (allowPromotionalContent == null ? 0 : System.hashCode(allowPromotionalContent));
+        hashCode = (17 * hashCode) + (allowWebUrls == null ? 0 : System.hashCode(allowWebUrls));
+        hashCode = (17 * hashCode) + (allowPhoneNumbers == null ? 0 : System.hashCode(allowPhoneNumbers));
+        hashCode = (17 * hashCode) + (allowEmailAddresses == null ? 0 : System.hashCode(allowEmailAddresses));
+        hashCode = (17 * hashCode) + (provideUrlAnalysis == null ? 0 : System.hashCode(provideUrlAnalysis));
         hashCode = (17 * hashCode) + (customPolicyID == null ? 0 : System.hashCode(customPolicyID));
         hashCode = (17 * hashCode) + (provideAnalysisRationale == null ? 0 : System.hashCode(provideAnalysisRationale));
-        hashCode = (17 * hashCode) + (textType == null ? 0 : System.hashCode(textType));
         hashCode = (17 * hashCode) + (fromName == null ? 0 : System.hashCode(fromName));
         hashCode = (17 * hashCode) + (toName == null ? 0 : System.hashCode(toName));
         hashCode = (17 * hashCode) + (fromPhoneNumber == null ? 0 : System.hashCode(fromPhoneNumber));

@@ -130,6 +130,29 @@ public class SwagPhishingDetectionApi {
         );
     }
     /**
+     * Perform AI phishing detection against input text string.  Returns a clean/not-clean result with confidence level and optional rationale.
+     * 
+     * @param body Phishing detection request (optional)
+     * @return SwagPhishingDetectionTextStringRespo
+     * @throws Swagger.ApiException if fails to make API call
+     */
+    public SwagPhishingDetectionTextStringRespo phishingDetectTextStringPost(Map<String, Object> params) {
+        List<Swagger.Param> query = new List<Swagger.Param>();
+        List<Swagger.Param> form = new List<Swagger.Param>();
+
+        return (SwagPhishingDetectionTextStringRespo) client.invoke(
+            'POST', '/phishing/detect/text-string',
+            (SwagPhishingDetectionTextStringReque) params.get('body'),
+            query, form,
+            new Map<String, Object>(),
+            new Map<String, Object>(),
+            new List<String>{ 'application/json' },
+            new List<String>{ 'application/json' },
+            new List<String> { 'Apikey' },
+            SwagPhishingDetectionTextStringRespo.class
+        );
+    }
+    /**
      * Perform advanced AI phishing detection and classification against an input URL.  Retrieves the URL content, checks for SSRF threats, and analyzes the page with AI deep learning to detect phishing and other unsafe content.  Uses 100-125 API calls.
      * 
      * @param body URL phishing detection request (optional)

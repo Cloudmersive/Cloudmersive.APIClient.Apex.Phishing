@@ -44,6 +44,42 @@
         }
       }
     },
+    "/phishing/detect/text-string": {
+      "post": {
+        "tags": [
+          "PhishingDetection"
+        ],
+        "summary": "Perform AI phishing detection against input text string.  Returns a clean/not-clean result with confidence level and optional rationale.",
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Phishing detection request",
+            "schema": {
+              "$ref": "#/definitions/PhishingDetectionTextStringRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/PhishingDetectionTextStringResponse"
+            }
+          }
+        }
+      }
+    },
     "/phishing/detect/text-string/advanced": {
       "post": {
         "tags": [
@@ -257,47 +293,88 @@
       "properties": {
         "InputString": {
           "description": "Input text string to detect phishing against",
-          "type": "string"
+          "type": "string",
+          "example": "Hello, world!"
+        },
+        "TextType": {
+          "description": "Optional: Type of text being analyzed. Must be one of: \"TextMessage\", \"UserMessage\", \"SalesLead\", \"EmailMessage\", \"SupportCase\", \"AppMessage\", \"Other\".",
+          "type": "string",
+          "example": "TextMessage"
         },
         "Model": {
           "description": "Optional: Specify which AI model to use.  Possible choices are Normal and Advanced.  Default is Advanced.",
-          "type": "string"
+          "type": "string",
+          "example": "Advanced"
+        },
+        "AllowUnsolicitedSales": {
+          "description": "Optional: True if unsolicited sales should be allowed, false otherwise. Defaults to true.",
+          "type": "boolean",
+          "example": true
+        },
+        "AllowPromotionalContent": {
+          "description": "Optional: True if promotional content should be allowed, false otherwise. Defaults to true.",
+          "type": "boolean",
+          "example": true
+        },
+        "AllowWebUrls": {
+          "description": "Optional: True if web URLs should be allowed in the input text, false otherwise. Defaults to true. When false, input containing URLs (including homoglyph URLs and spaced-out URLs) will be flagged as not clean.",
+          "type": "boolean",
+          "example": true
+        },
+        "AllowPhoneNumbers": {
+          "description": "Optional: True if phone numbers should be allowed in the input text, false otherwise. Defaults to true. When false, input containing phone numbers (including homoglyph digits and spaced-out or spelled-out workarounds) will be flagged as not clean.",
+          "type": "boolean",
+          "example": true
+        },
+        "AllowEmailAddresses": {
+          "description": "Optional: True if email addresses should be allowed in the input text, false otherwise. Defaults to true. When false, input containing email addresses (including homoglyph characters and obfuscated workarounds like \"danny at somedomaine [DOT] com\") will be flagged as not clean.",
+          "type": "boolean",
+          "example": true
+        },
+        "ProvideUrlAnalysis": {
+          "description": "Optional: True to perform deep URL analysis on any URLs detected in the text. When enabled, if the initial AI scan detects URLs, a second AI call enumerates them and each URL is individually analyzed for phishing. Defaults to true.",
+          "type": "boolean",
+          "example": true
         },
         "CustomPolicyID": {
           "description": "Apply a Custom Policy for Phishing Enforcement by providing the ID; to create a Custom Policy,\r\nnavigate to the Cloudmersive Management Portal and select Custom Policies.\r\nRequires Managed Instance or Private Cloud",
-          "type": "string"
+          "type": "string",
+          "example": ""
         },
         "ProvideAnalysisRationale": {
           "description": "Optional: Set to true to include an analysis rationale in the response explaining why the content was or was not flagged.  Default is true.",
-          "type": "boolean"
-        },
-        "TextType": {
-          "description": "Optional: Type of text being analyzed. Must be one of: \"Text Message\", \"User Message\", \"Sales Lead\", \"Email Message\", \"Support Case\", \"Other\".",
-          "type": "string"
+          "type": "boolean",
+          "example": true
         },
         "FromName": {
           "description": "Optional: Name of the sender",
-          "type": "string"
+          "type": "string",
+          "example": "John Smith"
         },
         "ToName": {
           "description": "Optional: Name of the recipient",
-          "type": "string"
+          "type": "string",
+          "example": "Jane Doe"
         },
         "FromPhoneNumber": {
           "description": "Optional: Phone number of the sender",
-          "type": "string"
+          "type": "string",
+          "example": "+1-555-123-4567"
         },
         "ToPhoneNumber": {
           "description": "Optional: Phone number of the recipient",
-          "type": "string"
+          "type": "string",
+          "example": "+1-555-987-6543"
         },
         "FromEmailAddress": {
           "description": "Optional: Email address of the sender",
-          "type": "string"
+          "type": "string",
+          "example": "john.smith@cloudmersive.com"
         },
         "ToEmailAddress": {
           "description": "Optional: Email address of the recipient",
-          "type": "string"
+          "type": "string",
+          "example": "jane.doe@cloudmersive.com"
         }
       },
       "additionalProperties": false
@@ -310,10 +387,29 @@
           "description": "True if the result is not phishing (clean), and false otherwise",
           "type": "boolean"
         },
-        "PhishingRiskLevel": {
-          "format": "double",
-          "description": "Overall phishing risk level between 0.0 and 1.0",
-          "type": "number"
+        "ContainsPhishing": {
+          "description": "True if the input text contains a phishing attempt, false otherwise",
+          "type": "boolean"
+        },
+        "ContainsUnsolicitedSales": {
+          "description": "True if the input text contains unsolicited sales, false otherwise",
+          "type": "boolean"
+        },
+        "ContainsPromotionalContent": {
+          "description": "True if the input text contains promotional content, false otherwise",
+          "type": "boolean"
+        },
+        "ContainsWebUrls": {
+          "description": "True if the input text contains web URLs, including homoglyph URLs and spaced-out URL workarounds",
+          "type": "boolean"
+        },
+        "ContainsPhoneNumbers": {
+          "description": "True if the input text contains phone numbers, including homoglyph digits and spaced-out or spelled-out workarounds",
+          "type": "boolean"
+        },
+        "ContainsEmailAddresses": {
+          "description": "True if the input text contains email addresses, including homoglyph characters and obfuscated workarounds",
+          "type": "boolean"
         },
         "ConfidenceLevel": {
           "format": "double",
@@ -323,6 +419,13 @@
         "AnalysisRationale": {
           "description": "Rationale for why the conclusion was formed",
           "type": "string"
+        },
+        "UnsafeUrls": {
+          "description": "URLs detected in the input text that were analyzed and found to be unsafe. Only populated when ProvideUrlAnalysis is true and URLs are detected.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UnsafeUrlResult"
+          }
         }
       },
       "additionalProperties": false
@@ -387,6 +490,48 @@
       },
       "additionalProperties": false
     },
+    "PhishingDetectionTextStringRequest": {
+      "description": "AI phishing detection request for basic text string analysis",
+      "type": "object",
+      "properties": {
+        "InputString": {
+          "description": "Input text string to detect phishing against",
+          "type": "string",
+          "example": "Hello, world!"
+        },
+        "Model": {
+          "description": "Optional: Specify which AI model to use.  Possible choices are Normal and Advanced.  Default is Advanced.",
+          "type": "string",
+          "example": "Advanced"
+        },
+        "ProvideAnalysisRationale": {
+          "description": "Optional: Set to true to include an analysis rationale in the response explaining why the content was or was not flagged.  Default is true.",
+          "type": "boolean",
+          "example": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "PhishingDetectionTextStringResponse": {
+      "description": "Result of detecting phishing using AI for basic text string analysis",
+      "type": "object",
+      "properties": {
+        "CleanResult": {
+          "description": "True if the result is not phishing (clean), and false otherwise",
+          "type": "boolean"
+        },
+        "ConfidenceLevel": {
+          "format": "double",
+          "description": "Confidence level between 0.0 and 1.0 where values over 0.9 indicate high confidence",
+          "type": "number"
+        },
+        "AnalysisRationale": {
+          "description": "Rationale for why the conclusion was formed",
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
     "PhishingDetectionUrlAdvancedResponse": {
       "description": "Result of detecting phishing from a URL using AI",
       "type": "object",
@@ -423,6 +568,33 @@
         "AnalysisRationale": {
           "description": "Rationale for why the conclusion was formed",
           "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "UnsafeUrlResult": {
+      "description": "Result of analyzing an individual URL found in text",
+      "type": "object",
+      "properties": {
+        "Url": {
+          "description": "The URL that was detected and analyzed",
+          "type": "string"
+        },
+        "CleanResult": {
+          "description": "True if the result is not phishing (clean), and false otherwise",
+          "type": "boolean"
+        },
+        "IsSsrfThreat": {
+          "description": "True if the URL is an SSRF threat",
+          "type": "boolean"
+        },
+        "ContainsPhishing": {
+          "description": "True if the URL contains phishing threat risks, false otherwise",
+          "type": "boolean"
+        },
+        "ContainsPhishingAttempt": {
+          "description": "True if the URL contains a phishing attempt, false otherwise",
+          "type": "boolean"
         }
       },
       "additionalProperties": false
